@@ -11,7 +11,7 @@ function Chatbot() {
     useEffect(() => { // This useEffect hook runs once when the component mounts
         const fetchInitialMessage = async () => {
             try {
-                const response = await fetch('https://ec2-3-16-108-219.us-east-2.compute.amazonaws.com/api/chatbot/initial/'); // Adjust this URL to your GET endpoint
+                const response = await fetch('http://3.16.108.219:8000/api/chatbot/initial/'); // Adjust this URL to your GET endpoint
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
