@@ -11,7 +11,7 @@ function Chatbot() {
     useEffect(() => { // This useEffect hook runs once when the component mounts
         const fetchInitialMessage = async () => {
             try {
-                const response = await fetch('https://3.16.108.219:8000/api/chatbot/initial/'); // Adjust this URL to your GET endpoint
+                const response = await fetch('https://3.23.115.184/api/chatbot/initial/'); // Adjust this URL to your GET endpoint
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -28,7 +28,7 @@ function Chatbot() {
     }, []);
     const fetchClosingMessage = async () => {
         try {
-            const response = await fetch('https://3.16.108.219/api/chatbot/closing/');
+            const response = await fetch('https://3.23.115.184/api/chatbot/closing/');
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
@@ -54,7 +54,7 @@ function Chatbot() {
         const timeSpent = Math.round((endTime - startTime)/1000);
 
         try {
-            const response = await fetch('https://3.16.108.219/api/chatbot/', {
+            const response = await fetch('https://3.23.115.184/api/chatbot/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
