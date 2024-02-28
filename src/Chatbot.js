@@ -7,11 +7,12 @@ function Chatbot() {
     const [conversationIndex, setConversationIndex] = useState(0);
     const [startTime, setStartTime] = useState(Date.now());
     const [conversation, setConversation] = useState([]);
+    const [classType, setClassType] = useState('');
 
     useEffect(() => { // This useEffect hook runs once when the component mounts
         const fetchInitialMessage = async () => {
             try {
-                const response = await fetch('http://3.23.115.184/api/chatbot/initial/'); // Adjust this URL to your GET endpoint
+                const response = await fetch('http://18.118.247.229/api/chatbot/initial/'); // Adjust this URL to your GET endpoint
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -28,7 +29,7 @@ function Chatbot() {
     }, []);
     const fetchClosingMessage = async () => {
         try {
-            const response = await fetch('http://3.23.115.184/api/chatbot/closing/');
+            const response = await fetch('http://18.118.247.229/api/chatbot/closing/');
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
@@ -54,12 +55,13 @@ function Chatbot() {
         const timeSpent = Math.round((endTime - startTime)/1000);
 
         try {
-            const response = await fetch('http://3.23.115.184/api/chatbot/', {
+            const response = await fetch('http://18.118.247.229/api/chatbot/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ message: userInput, index: conversationIndex, timer: timeSpent, chatLog: conversation }),
+                body: JSON.stringify({ message: userInput, index: conversationIndex, timer: timeSpent,
+                    classType: classType, chatLog: conversation }),
             });
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -67,10 +69,12 @@ function Chatbot() {
             const data = await response.json();
             // Add the response from the chatbot to the messages
             console.log(data);
-            setConversationIndex(data.index)
+            console.log(conversation);
+            setConversationIndex(data.index);
+            setClassType(data.classType);
             setMessages(messages => [...messages, { text: data.reply, sender: 'combot' }]);
             addMessageToConversation(data.reply,'combot');
-            if(conversationIndex === 1){
+            if(conversationIndex === 3){
                 const delay = Math.random() * (5000 - 3000) + 3000;
 
                 setTimeout(async () => {
